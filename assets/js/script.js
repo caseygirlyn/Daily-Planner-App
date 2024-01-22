@@ -46,8 +46,8 @@ for (let index = 0; index <= 8; index++) {
             <textarea class="form-control bg-transparent border-0 shadow-none" id="textArea${index}" required></textarea>
             </div>
             <div class="col-lg-1 col-xs-12">
-                <button type="button" class="w-100 h-100 saveBtn border-0 py-4 mt-2 mt-lg-0"><i
-                class="bi bi-floppy2-fill white-text"></i></button>
+                <button type="button" class="w-100 h-100 saveBtn border-0 mt-2 mt-lg-0"><i
+                class="bi bi-floppy2-fill white-text w-100 h-100 py-4 d-grid align-items-center"></i></button>
             </div>
         </div>`;
     cssClass = '';
@@ -81,5 +81,20 @@ function displaySchedule() {
         let textAreaVal = sched.textAreaVal;
         $('#' + textAreaIndex).val(textAreaVal);
     });
+    if(hourlySchedule.length > 0){
+        container.append(`<div class="mt-4 text-center"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="clearBtn">Clear Schedule</button></div>`)
+    }
 }
 displaySchedule();
+
+// Reload the page when user closes the modal
+$('#closeModal').on('click', function () {
+    location.reload();
+});
+
+// Additional feature: Clear event(s) from local storage
+container.on('click', '#clearBtn', function (event) {
+    event.preventDefault();
+    window.localStorage.removeItem('hourlySchedule');
+    location.reload();
+});
