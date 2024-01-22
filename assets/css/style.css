@@ -73,3 +73,9 @@ header {
   border-style: dashed;
   border-width: 0 0 1px 0;
 }
+
+@media(max-width:991px){
+  .saveBtn{
+    border-radius: 5px;
+  }
+}
