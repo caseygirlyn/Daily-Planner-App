@@ -63,6 +63,7 @@ container.on('click', '.saveBtn', function (event) {
         let saveSchedule = { textAreaID: textAreaID, textAreaVal: textAreaVal };
         hourlySchedule.push(saveSchedule);
         window.localStorage.setItem('hourlySchedule', JSON.stringify(hourlySchedule));
+        $('#saveSuccess').modal('show');
     }
 });
 
