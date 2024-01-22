@@ -6,6 +6,7 @@ let startDate = dayjs().format('YYYY-MM-DD');
 let startTime = dayjs(startDate + ' 9');
 let currentTime = dayjs();
 
+// Convert date to ordinal format
 currentDay.text(today + ordinalDate);
 function getOrdinal(n) {
     let ord = 'th';
@@ -22,7 +23,6 @@ function getOrdinal(n) {
 }
 
 // Loop for standard business hours
-
 for (let index = 0; index <= 8; index++) {
     if (startTime.format('hA') == currentTime.format('hA')) {
         cssClass = 'present';
@@ -48,3 +48,19 @@ for (let index = 0; index <= 8; index++) {
     startTime = startTime.add(1, 'hour');
     container.append(rowSchedule);
 }
+
+
+//Save the event in local storage when the save button is clicked in that timeblock.
+container.on('click', '.saveBtn', function (event) {
+    event.preventDefault();
+    let textAreaEl = $(event.target).parent().parent().siblings().eq(1).children();
+    let textAreaVal = textAreaEl.val();
+    let textAreaID = textAreaEl.attr('id');
+
+    if (textAreaVal !== '' && event.target) {
+        let hourlySchedule = JSON.parse(window.localStorage.getItem('hourlySchedule')) || [];
+        let saveSchedule = { textAreaID: textAreaID, textAreaVal: textAreaVal };
+        hourlySchedule.push(saveSchedule);
+        window.localStorage.setItem('hourlySchedule', JSON.stringify(hourlySchedule));
+    }
+});
