@@ -6,6 +6,11 @@ let startDate = dayjs().format('YYYY-MM-DD');
 let startTime = dayjs(startDate + ' 9');
 let currentTime = dayjs();
 let hourlySchedule = JSON.parse(window.localStorage.getItem('hourlySchedule')) || [];
+let cssClass = '';
+let rowSchedule;
+let alertMsg = `<div id="alert" class="alert alert-danger alert-dismissible fade show my-2 text-center" role="alert">
+<i class="bi bi-exclamation-triangle-fill me-2"></i>Event is required. Please add your event in the timeblock.<button type="button" class="btn-close p-3" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>`;
 
 // Convert date to ordinal format
 currentDay.text(today + ordinalDate);
@@ -64,6 +69,8 @@ container.on('click', '.saveBtn', function (event) {
         hourlySchedule.push(saveSchedule);
         window.localStorage.setItem('hourlySchedule', JSON.stringify(hourlySchedule));
         $('#saveSuccess').modal('show');
+    }else {
+        $('.container-lg').html(alertMsg);
     }
 });
 
