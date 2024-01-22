@@ -5,6 +5,7 @@ let container = $('.container');
 let startDate = dayjs().format('YYYY-MM-DD');
 let startTime = dayjs(startDate + ' 9');
 let currentTime = dayjs();
+let hourlySchedule = JSON.parse(window.localStorage.getItem('hourlySchedule')) || [];
 
 // Convert date to ordinal format
 currentDay.text(today + ordinalDate);
@@ -64,3 +65,13 @@ container.on('click', '.saveBtn', function (event) {
         window.localStorage.setItem('hourlySchedule', JSON.stringify(hourlySchedule));
     }
 });
+
+// Persist events between refreshes of a page
+function displaySchedule() {
+    hourlySchedule.forEach(function (sched) {
+        let textAreaIndex = sched.textAreaID;
+        let textAreaVal = sched.textAreaVal;
+        $('#' + textAreaIndex).val(textAreaVal);
+    });
+}
+displaySchedule();
