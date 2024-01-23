@@ -12,13 +12,15 @@ The Daily Planner App is a simple and intuitive tool designed to help you organi
 - Persist events between refreshes of a page.
 - Clear events
 
-
 ## Technologies Used
 
 - **Frontend:** HTML, CSS, Bootstrap and JavaScript
 - **Libraries** Day.js, jQuery with jQuery UI
 - **Version Control:** Git
 
+## Screenshot
+
+![Home Page](./assets/image/daily-planner-app.gif)
 
 ## Link to Project
 
