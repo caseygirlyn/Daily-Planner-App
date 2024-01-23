@@ -66,7 +66,6 @@ container.on('click', '.saveBtn', function (event) {
 
     if (textAreaVal !== '' && event.target) {
         let hourlySchedule = JSON.parse(window.localStorage.getItem('hourlySchedule')) || [];
-        //hourlySchedule[8].textAreaVal = 'Char'; 
         let saveSchedule = { textAreaID: textAreaID, textAreaVal: textAreaVal };
         hourlySchedule.push(saveSchedule);
         window.localStorage.setItem('hourlySchedule', JSON.stringify(hourlySchedule));
