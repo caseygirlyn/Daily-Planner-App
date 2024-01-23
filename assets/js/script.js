@@ -30,13 +30,14 @@ function getOrdinal(n) {
 
 // Loop for standard business hours
 for (let index = 0; index <= 8; index++) {
-    if (startTime.format('hA') == currentTime.format('hA')) {
+    if (startTime.format('YYYY-MM-DD hA') == currentTime.format('YYYY-MM-DD hA')) {
         cssClass = 'present';
-    } else if (startTime < currentTime) {
+    } else if (currentTime.format('YYYY-MM-DDTHH:mm:ssZ[Z]') > startTime.format('YYYY-MM-DDTHH:mm:ssZ[Z]')) {
         cssClass = 'past';
-    } else {
+    } else if (currentTime.format('YYYY-MM-DDTHH:mm:ssZ[Z]') < startTime.format('YYYY-MM-DDTHH:mm:ssZ[Z]'))  {
         cssClass = 'future';
     }
+
     rowSchedule = `
         <div class="row g-0">
             <div class="col-lg-1 col-xs-12 border-dashed d-lg-grid align-content-center p-3 text-lg-end text-center">
@@ -65,6 +66,7 @@ container.on('click', '.saveBtn', function (event) {
 
     if (textAreaVal !== '' && event.target) {
         let hourlySchedule = JSON.parse(window.localStorage.getItem('hourlySchedule')) || [];
+        //hourlySchedule[8].textAreaVal = 'Char'; 
         let saveSchedule = { textAreaID: textAreaID, textAreaVal: textAreaVal };
         hourlySchedule.push(saveSchedule);
         window.localStorage.setItem('hourlySchedule', JSON.stringify(hourlySchedule));
