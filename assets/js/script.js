@@ -1,6 +1,5 @@
 let currentDay = $('#currentDay');
-let ordinalDate = getOrdinal(dayjs().format('D'));
-let today = dayjs().format('dddd, MMMM D');
+let today = dayjs().format('dddd, MMMM Do');
 let container = $('.container');
 let startDate = dayjs().format('YYYY-MM-DD');
 let startTime = dayjs(startDate + ' 9');
@@ -12,21 +11,7 @@ let alertMsg = `<div id="alert" class="alert alert-danger alert-dismissible fade
 <i class="bi bi-exclamation-triangle-fill me-2"></i>Event is required. Please add your event in the timeblock.<button type="button" class="btn-close p-3" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>`;
 
-// Convert date to ordinal format
-currentDay.text(today + ordinalDate);
-function getOrdinal(n) {
-    let ord = 'th';
-    if (n % 10 == 1 && n % 100 != 11) {
-        ord = 'st';
-    }
-    else if (n % 10 == 2 && n % 100 != 12) {
-        ord = 'nd';
-    }
-    else if (n % 10 == 3 && n % 100 != 13) {
-        ord = 'rd';
-    }
-    return ord;
-}
+currentDay.text(today);
 
 // Loop for standard business hours
 for (let index = 0; index <= 8; index++) {
@@ -63,9 +48,11 @@ container.on('click', '.saveBtn', function (event) {
     let textAreaEl = $(event.target).parent().parent().siblings().eq(1).children();
     let textAreaVal = textAreaEl.val();
     let textAreaID = textAreaEl.attr('id');
+    
+    // let arrayIndex = textAreaID[8];
+    // console.log(hourlySchedule[arrayIndex]);
 
     if (textAreaVal !== '' && event.target) {
-        let hourlySchedule = JSON.parse(window.localStorage.getItem('hourlySchedule')) || [];
         let saveSchedule = { textAreaID: textAreaID, textAreaVal: textAreaVal };
         hourlySchedule.push(saveSchedule);
         window.localStorage.setItem('hourlySchedule', JSON.stringify(hourlySchedule));
@@ -96,6 +83,6 @@ $('#closeModal').on('click', function () {
 // Additional feature: Clear event(s) from local storage
 container.on('click', '#clearBtn', function (event) {
     event.preventDefault();
-    window.localStorage.removeItem('hourlySchedule');
+    localStorage.clear();
     location.reload();
 });
