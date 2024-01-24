@@ -48,9 +48,6 @@ container.on('click', '.saveBtn', function (event) {
     let textAreaEl = $(event.target).parent().parent().siblings().eq(1).children();
     let textAreaVal = textAreaEl.val();
     let textAreaID = textAreaEl.attr('id');
-    
-    // let arrayIndex = textAreaID[8];
-    // console.log(hourlySchedule[arrayIndex]);
 
     if (textAreaVal !== '' && event.target) {
         let saveSchedule = { textAreaID: textAreaID, textAreaVal: textAreaVal };
